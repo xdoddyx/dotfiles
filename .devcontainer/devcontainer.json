@@ -1,15 +1,7 @@
 {
-  "name": "dotfiles-devpod",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "mounts": [
-    "source=${localEnv:SSH_AUTH_SOCK},target=/run/host-services/ssh-auth.sock,type=bind,consistency=cached"
-  ],
-  "remoteEnv": {
-    "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock"
+  "build": {
+    "context": "..",
+    "dockerfile": "Dockerfile"
   },
-  "postCreateCommand": "./setup",
-
-  "mounts": [
-    "source=${env:SSH_AUTH_SOCK},target=/run/host-services/ssh-auth.sock,type=bind,consistency=cached"
-  ]
+  "postCreateCommand": "scripts/setup"
 }
