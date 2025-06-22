@@ -1,13 +1,11 @@
 {
   "name": "dotfiles-devpod",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    // Run this once after the container is created
-  "postCreateCommand": "./setup.sh",
-  //#  "workspaceFolder": "/workspaces/dotfiles",
-  //#  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/dotfiles,type=bind,consistency=cached",
   "remoteEnv": {
     "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock"
   },
+  "postCreateCommand": "./setup.sh",
+
   "mounts": [
     "source=${env:SSH_AUTH_SOCK},target=/run/host-services/ssh-auth.sock,type=bind,consistency=cached"
   ]
