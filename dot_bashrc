@@ -160,4 +160,5 @@ if [[ "$TERM" == "xterm" ]]; then
     PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }precmd"
 fi
 
-#Test update
+#Test chezmoi update bashrc
+set -o vi
