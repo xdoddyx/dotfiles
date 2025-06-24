@@ -1,3 +1,4 @@
-[".chezmoiscripts/install_mise.sh.tmpl"]
-type = "script"
-
+[".local/bin/mise"]
+type = "file"
+executable = true
+url = "https://mise.jdx.dev/mise-latest-{{.chezmoi.os}}-{{.chezmoi.arch}}"
