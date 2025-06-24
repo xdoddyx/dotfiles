@@ -156,6 +156,8 @@ if [[ "$TERM" == "xterm" ]]; then
     PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }precmd"
 fi
 
-#Additional Commnad
+# Mischa's Custom Additons
+
 set -o vi
+
 eval "$(mise activate bash)"
