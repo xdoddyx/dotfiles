@@ -36,6 +36,25 @@ fi
 
 export LANG="en_US.UTF-8"
 
+<<<<<<< HEAD
+=======
+# Directories
+export REPOS="$HOME/Repos"
+export GITUSER="xdoddyx"
+export GHREPOS="$REPOS/github.com/$GITUSER"
+export DOTFILES="$HOME/.local/share/chezmoi"
+export SCRIPTS="$DOTFILES/scripts"
+export ICLOUD="$HOME/icloud"
+export ZETTELKASTEN="$HOME/Zettelkasten"
+
+# Go related. In general all executables and scripts go in .local/bin
+
+export GOBIN="$HOME/.local/bin"
+export GOPRIVATE="github.com/$GITUSER/*,gitlab.com/$GITUSER/*"
+# export GOPATH="$HOME/.local/share/go"
+export GOPATH="$HOME/go/"
+
+>>>>>>> dc7eeaf (update)
 
 # ~~~~~~~~~~~~~~~ Mise ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -83,3 +102,127 @@ if command -v lsd > /dev/null ; then
   alias lt='ls --tree'
 fi
 
+<<<<<<< HEAD
+=======
+
+# 0
+
+alias 0='cd $HOME/0'
+alias zo='eval "$($SCRIPTS/0-cd)"'
+
+# Repos
+
+alias lab='cd $LAB'
+alias dot='cd $HOME/.local/share/chezmoi'
+alias repos='cd $REPOS'
+alias ghrepos='cd $GHREPOS'
+alias gr='ghrepos'
+alias cdgo='cd $GHREPOS/go/'
+
+# Homelab
+
+alias homelab='cd $GHREPOS/homelab/'
+alias hl='homelab'
+
+# finds all files recursively and sorts by last modification, ignore hidden files
+alias lastmod='find . -type f -not -path "*/\.*" -exec ls -lrt {} +'
+
+alias t='tmux'
+alias e='exit'
+
+alias syu='sudo pacman -Syu'
+
+# Azure
+
+alias sub='az account set -s'
+
+# Git
+
+alias gp='git pull'
+alias gs='git status'
+alias lg='lazygit'
+
+
+# Zettelkasten
+
+alias in="cd \$ZETTELKASTEN/0\ Inbox/"
+alias cdzk="cd \$ZETTELKASTEN"
+
+
+# Kubernetes
+
+alias k='kubectl'
+
+alias kgp='kubectl get pods'
+alias kc='kubectx'
+alias kn='kubens'
+
+alias fgk='flux get kustomizations'
+
+# Pass
+
+alias pc='pass show -c'
+
+# Devpod
+
+alias ds='devpod ssh'
+
+# Bluetooth
+
+# Airpods Max
+alias btm='bluetoothctl connect 08:FF:44:0E:EA:D6'
+
+# Airpods
+alias bta='bluetoothctl connect 08:65:18:78:BD:A6'
+
+# ~~~~~~~~~~~~~~~ Completion ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+fpath+=~/.zfunc
+
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+fi
+
+autoload -Uz compinit
+compinit -u
+
+zstyle ':completion:*' menu select
+
+if command -v fzf > /dev/null ; then
+  source <(fzf --zsh)
+fi
+
+if command -v k3d > /dev/null ; then
+  source <(k3d completion zsh)
+fi
+
+if command -v kubectl > /dev/null ; then
+  source <(kubectl completion zsh)
+fi
+
+if command -v flux > /dev/null ; then
+  source <(flux completion zsh)
+fi
+
+if command -v mise > /dev/null ; then
+  source <(mise completion zsh)
+fi
+
+
+# ~~~~~~~~~~~~~~~ Sourcing ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+if [ -f "$HOME/.privaterc" ]; then
+  source "$HOME/.privaterc"
+fi
+
+if command -v direnv > /dev/null ; then
+  eval "$(direnv hook zsh)"
+fi
+
+
+# ~~~~~~~~~~~~~~~ Misc ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+>>>>>>> dc7eeaf (update)
