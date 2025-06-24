@@ -1,5 +1,5 @@
 [tools]
-
+kubectl = "latest"
 neovim = "latest"
 ripgrep = "latest"
 lsd = "latest"
