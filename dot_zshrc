@@ -25,6 +25,26 @@ prompt pure
 bindkey -v
 export KEYTIMEOUT=1 # make switching between modes faster
 
+# ~~~~~~~~~~~~~~~ SSH ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# Using GPG + YubiKey for ssh.
+# Don't execute when in dev container
+
+
+if [[ -z "$REMOTE_CONTAINERS" && -z "$CODESPACES" && -z "$DEVCONTAINER_TYPE" ]]; then
+  export GPG_TTY="$(tty)"
+  unset SSH_AGENT_PID
+
+  if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+  fi
+
+  gpgconf --launch gpg-agent
+  gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
+
+fi
+
 
 # ~~~~~~~~~~~~~~~ Environment Variables ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -36,9 +56,15 @@ fi
 
 export LANG="en_US.UTF-8"
 
-<<<<<<< HEAD
-=======
 # Directories
+
+if command -v vivaldi > /dev/null ; then
+  export BROWSER="vivaldi"
+fi
+
+
+# Directories
+
 export REPOS="$HOME/Repos"
 export GITUSER="xdoddyx"
 export GHREPOS="$REPOS/github.com/$GITUSER"
@@ -54,7 +80,6 @@ export GOPRIVATE="github.com/$GITUSER/*,gitlab.com/$GITUSER/*"
 # export GOPATH="$HOME/.local/share/go"
 export GOPATH="$HOME/go/"
 
->>>>>>> dc7eeaf (update)
 
 # ~~~~~~~~~~~~~~~ Mise ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -82,6 +107,72 @@ if command -v mise > /dev/null ; then
   source <(mise completion zsh)
 fi
 
+# ~~~~~~~~~~~~~~~ Path configuration ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+setopt extended_glob null_glob
+
+path=(
+    $path                           # Keep existing PATH entries
+    $HOME/bin
+    $HOME/.local/bin
+    $HOME/dotnet
+    /home/linuxbrew/.linuxbrew/opt/dotnet@8/bin # Dotnet for dev container
+    $SCRIPTS
+    $HOME/.krew/bin
+    $HOME/.rd/bin                   # Rancher Desktop
+    /home/vscode/.local/bin         # Dev Container Specifics
+    /root/.local/bin                # Dev Container Specifics
+)
+
+# Remove duplicate entries and non-existent directories
+typeset -U path
+path=($^path(N-/))
+
+export PATH
+
+
+# ~~~~~~~~~~~~~~~ Dev Container Specifics ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+
+# ~~~~~~~~~~~~~~~ History ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+
+setopt HIST_IGNORE_SPACE  # Don't save when prefixed with space
+setopt HIST_IGNORE_DUPS   # Don't save duplicate lines
+setopt SHARE_HISTORY      # Share history between sessions
+
+
+# ~~~~~~~~~~~~~~~ Prompt ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+PURE_GIT_PULL=0
+
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  fpath+=("$(brew --prefix)/share/zsh/site-functions")
+else
+  fpath+=($HOME/.zsh/pure)
+fi
+
+autoload -U promptinit; promptinit
+prompt pure
+
+
+# enable zsh vi-mode
+
+bindkey -v
+export KEYTIMEOUT=1 # make switching between modes faster
+
 
 # ~~~~~~~~~~~~~~~ Aliases ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -94,6 +185,11 @@ if command -v bat > /dev/null ; then
   alias cat="bat"
 fi
 
+alias scripts='cd $SCRIPTS'
+alias cdblog="cd ~/websites/blog"
+alias c="clear"
+alias icloud="cd \$ICLOUD"
+
 if command -v lsd > /dev/null ; then
   alias ls="lsd"
   alias ll="ls -lgh"
@@ -101,9 +197,6 @@ if command -v lsd > /dev/null ; then
   alias lla='ls -lgha'
   alias lt='ls --tree'
 fi
-
-<<<<<<< HEAD
-=======
 
 # 0
 
@@ -167,13 +260,6 @@ alias pc='pass show -c'
 
 alias ds='devpod ssh'
 
-# Bluetooth
-
-# Airpods Max
-alias btm='bluetoothctl connect 08:FF:44:0E:EA:D6'
-
-# Airpods
-alias bta='bluetoothctl connect 08:65:18:78:BD:A6'
 
 # ~~~~~~~~~~~~~~~ Completion ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -225,4 +311,3 @@ fi
 # ~~~~~~~~~~~~~~~ Misc ~~~~~~~~~~~~~~~~~~~~~~~~
 
 
->>>>>>> dc7eeaf (update)
