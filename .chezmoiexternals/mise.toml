@@ -1,4 +1,4 @@
-[".local/bin/mise"]
-type = "file"
-executable = true
-url = "https://github.com/jdxcode/mise/releases/latest/download/mise-darwin-arm64"
+mkdir -p ~/.local/bin
+curl -Lo ~/.local/bin/mise \
+  https://github.com/jdxcode/mise/releases/latest/download/mise-darwin-arm64
+chmod +x ~/.local/bin/mise
