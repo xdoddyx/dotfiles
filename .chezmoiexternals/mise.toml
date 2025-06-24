@@ -1,4 +1,4 @@
 [".local/bin/mise"]
 type = "file"
 executable = true
-url = "https://mise.jdx.dev/mise-latest-{{.chezmoi.os}}-{{.chezmoi.arch}}"
+url = "https://github.com/jdxcode/mise/releases/latest/download/mise-darwin-arm64"

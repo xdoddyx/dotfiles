@@ -10,4 +10,3 @@ node = "latest"
 chezmoi = "latest"
 usage = "latest"   # for mise completion
 
-# "ubi:fluxcd/flux2" = { version = "latest", exe = "flux" }
