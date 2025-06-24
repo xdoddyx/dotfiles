@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+
+if ! command -v mise >/dev/null; then
+  echo "Installing mise from official source..."
+  curl https://mise.run | sh
+fi
+
