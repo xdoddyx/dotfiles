@@ -44,41 +44,36 @@ export SCRIPTS="$DOTFILES/scripts"
 export ICLOUD="$HOME/icloud"
 export ZETTELKASTEN="$HOME/Zettelkasten"
 
-# Go related. In general all executables and scripts go in .local/bin
-
-export GOBIN="$HOME/.local/bin"
-export GOPRIVATE="github.com/$GITUSER/*,gitlab.com/$GITUSER/*"
-# export GOPATH="$HOME/.local/share/go"
-export GOPATH="$HOME/go/"
-
 
 # ~~~~~~~~~~~~~~~ Mise ~~~~~~~~~~~~~~~~~~~~~~~~
 
-
+#if command -v mise > /dev/null ; then
+#  eval "$($HOME/.local/bin/mise activate zsh)"
+#fi
 if command -v mise > /dev/null ; then
-  eval "$($HOME/.local/bin/mise activate zsh)"
+  eval "$(mise activate zsh)"
 fi
 
-
 # ~~~~~~~~~~~~~~~ Path configuration ~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 setopt extended_glob null_glob
 
 path=(
-    $path                           # Keep existing PATH entries
-    $HOME/bin
-    $HOME/.local/bin
-    $HOME/dotnet
-    /home/linuxbrew/.linuxbrew/opt/dotnet@8/bin # Dotnet for dev container
-    $SCRIPTS
-    $HOME/.krew/bin
-    $HOME/.rd/bin                   # Rancher Desktop
-    /home/vscode/.local/bin         # Dev Container Specifics
-    /root/.local/bin                # Dev Container Specifics
+  /opt/homebrew/bin                # Homebrew (M1/M2 Macs)
+  /opt/homebrew/sbin              # Optional Homebrew sbin
+  $path                            # Preserve existing $PATH entries
+  $HOME/bin
+  $HOME/.local/bin
+  $HOME/dotnet
+  /home/linuxbrew/.linuxbrew/opt/dotnet@8/bin  # For Linux containers
+  $SCRIPTS
+  $HOME/.krew/bin
+  $HOME/.rd/bin
+  /home/vscode/.local/bin
+  /root/.local/bin
 )
 
-# Remove duplicate entries and non-existent directories
+# Remove duplicates and invalid directories
 typeset -U path
 path=($^path(N-/))
 
