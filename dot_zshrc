@@ -36,7 +36,7 @@ export LANG="en_US.UTF-8"
 
 # Directories
 
-export REPOS="$HOME/Github/"
+export REPOS="$HOME/Repos"
 export GITUSER="xdoddyx"
 export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$HOME/.local/share/chezmoi"
