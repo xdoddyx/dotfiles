@@ -1,18 +1,21 @@
 #!/bin/bash
 set -euo pipefail
 
-# Install mise using Homebrew
-if ! command -v mise >/dev/null; then
-  echo "[+] Installing mise with Homebrew..."
-  brew install mise
-else
-  echo "[✓] mise already installed at: $(command -v mise)"
+# Install mise via brew or fallback to mise.run
+if ! command -v mise &>/dev/null; then
+  if command -v brew &>/dev/null; then
+    echo "[+] Installing mise using Homebrew..."
+    brew install mise
+  else
+    echo "[+] Installing mise using curl fallback..."
+    curl https://mise.run | sh
+  fi
 fi
 
-# Optionally symlink to ~/.local/bin (for compatibility with other scripts)
+# Ensure it's accessible from ~/.local/bin
+mkdir -p "$HOME/.local/bin"
 if [ ! -f "$HOME/.local/bin/mise" ]; then
-  mkdir -p "$HOME/.local/bin"
   ln -sf "$(command -v mise)" "$HOME/.local/bin/mise"
-  echo "[+] Symlinked mise to ~/.local/bin/mise"
+  echo "[+] Linked mise to ~/.local/bin"
 fi
 

@@ -1,15 +1,14 @@
 #!/bin/bash
 # packages hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
+set -euo pipefail
 
-mise_bin="$(command -v mise)"
+mise_bin="$(command -v mise || true)"
 
-if [ -x "$mise_bin" ]; then
-  # Trust the directory where .mise.toml is located
-  cd "$HOME/.config/mise" || exit 1
-  "$mise_bin" trust . && \
-  "$mise_bin" install
-else
-  echo "❌ mise not found in PATH. Please ensure it is installed." >&2
+if [ -z "$mise_bin" ]; then
+  echo "mise is not installed. Skipping package installation." >&2
   exit 1
 fi
 
+# Trust the full config directory and install
+"$mise_bin" trust "$HOME/.config/mise"
+"$mise_bin" install
