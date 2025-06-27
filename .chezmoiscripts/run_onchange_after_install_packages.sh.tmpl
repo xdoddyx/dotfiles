@@ -1,14 +1,3 @@
 #!/bin/bash
 # packages hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
-set -euo pipefail
-
-mise_bin="$(command -v mise || true)"
-
-if [ -z "$mise_bin" ]; then
-  echo "mise is not installed. Skipping package installation." >&2
-  exit 1
-fi
-
-# Trust the full config directory and install
-"$mise_bin" trust "$HOME/.config/mise"
-"$mise_bin" install
+$HOME/.local/bin/mise trust $HOME/.config/mise/config.toml && $HOME/.local/bin/mise install --verbose
