@@ -75,7 +75,7 @@ path=(
     $HOME/.krew/bin
     $HOME/.rd/bin                   # Rancher Desktop
     /home/vscode/.local/bin         # Dev Container Specifics
-    /root/.local/bin                # Dev Container Specifics
+    /root/.local/bin                # Dev Container Specific
 )
 
 # Remove duplicate entries and non-existent directories
@@ -123,8 +123,8 @@ prompt pure
 
 # enable zsh vi-mode
 
-bindkey -v
-export KEYTIMEOUT=1 # make switching between modes faster
+#bindkey -v
+#export KEYTIMEOUT=1 # make switching between modes faster
 
 
 # ~~~~~~~~~~~~~~~ Aliases ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -268,7 +268,4 @@ fi
 
 
 # ~~~~~~~~~~~~~~~ Misc ~~~~~~~~~~~~~~~~~~~~~~~~
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/home/doddy/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
