@@ -8,8 +8,9 @@ fzf = "latest"
 fd = "latest"
 node = "latest"
 chezmoi = "latest"
-usage = "latest"   # for mise completion
+usage = "latest"    # for mise completion
 kubectl = "latest"
 k9s = "latest"
 lazygit = "latest"
+talosctl = "latest"
 # "ubi:fluxcd/flux2" = { version = "latest", exe = "flux" }
